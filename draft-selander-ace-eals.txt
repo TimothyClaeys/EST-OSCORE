@@ -5,8 +5,8 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: August 25, 2017                                       RISE SICS
-                                                       February 21, 2017
+Expires: August 28, 2017                                       RISE SICS
+                                                       February 24, 2017
 
 
                Enrollment with Application Layer Security
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 25, 2017.
+   This Internet-Draft will expire on August 28, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 1]
+Selander & Raza          Expires August 28, 2017                [Page 1]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
@@ -65,19 +65,20 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Enrollment Protocols  . . . . . . . . . . . . . . . . . . . .   4
-     2.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.2.  Simple Enrollment . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Full Enrollment . . . . . . . . . . . . . . . . . . . . .   5
-   3.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   4.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .   7
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-   6.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   7
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   2.  Architectural Overview  . . . . . . . . . . . . . . . . . . .   4
+   3.  Enrollment Protocols  . . . . . . . . . . . . . . . . . . . .   4
+     3.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.2.  Simple Enrollment . . . . . . . . . . . . . . . . . . . .   5
+     3.3.  Full Enrollment . . . . . . . . . . . . . . . . . . . . .   6
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .   8
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
+   7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   8
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -104,16 +105,17 @@ Table of Contents
    COSE [I-D.ietf-cose-msg], and makes only a small additional
    implementation footprint.
 
-   Lately there has been a discussion in several IETF working groups
-   about certificate enrollment protocols suitable for IoT devices, to
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 2]
+
+Selander & Raza          Expires August 28, 2017                [Page 2]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
+   Lately there has been a discussion in several IETF working groups
+   about certificate enrollment protocols suitable for IoT devices, to
    enable zero-touch joining of a device in a network domain.  BRSKI
    [I-D.ietf-anima-bootstrapping-keyinfra] specifies an automated
    bootstrapping of a remote secure key infrastructure (BRSKI) using
@@ -163,19 +165,67 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
 
-
-
-Selander & Raza          Expires August 25, 2017                [Page 3]
+Selander & Raza          Expires August 28, 2017                [Page 3]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
-2.  Enrollment Protocols
+2.  Architectural Overview
 
-2.1.  Overview
+   When a pledge first joins a constrained network, it typically does
+   not have IPv6 connectivity to reach the Join Registrar/Coordinator.
+   For that reason, pledge communicates with the Join Proxy, a one hop
+   neighbor of the pledge.  Join Proxy statelessly relays the exchanges
+   between the pledge and the Join Registrar/Coordinator.
+
+   As in the model of [I-D.ietf-6tisch-minimal-security], the Join Proxy
+   plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps
+   state information in order to relay the response back to the
+   originating client, in this case the pledge.  To mitigate Denial of
+   Service attacks at the Join Proxy, [I-D.ietf-6tisch-minimal-security]
+   mandates the use of a new CoAP option, Stateless-Proxy option, that
+   allows the Join Proxy to operate statelessly.  The proxy adds en-
+   route the state information necessary for its operation as the value
+   of the Stateless-Proxy option.  The value of the Stateless-Proxy
+   option is opaque to the JRC/CoAP server.  The option is echoed back
+   by the JRC/CoAP server, and consumed by the proxy.  Figure 1
+   illustrates the operation of the Join Proxy.
+
++--------+     +-------+       +--------+
+| pledge |     |  JP   |       |  JRC   |
+|        |     |       |       |        |
++--------+     +-------+       +--------+
+    |              |                |
+    +------------->|                |
+    |   Request    |                |
+    |              |                |
+    |              +--------------->|
+    |              |     Request    |       Stateless-Proxy: opaque value
+    |              |                |
+    |              |<---------------+
+    |              |    Response    |       Stateless-Proxy: opaque value
+    |              |                |
+    <--------------+                |
+    |   Response   |                |
+    |              |                |
+
+           Figure 1: Overview of the bootstrapping architecture.
+
+3.  Enrollment Protocols
+
+3.1.  Overview
 
    Two different certificate enrollment protocols are described in this
    document; the simple (EALS) enrollment protocol and the full (EALS)
+
+
+
+
+Selander & Raza          Expires August 28, 2017                [Page 4]
+
+Internet-Draft Enrollment with Application Layer Security  February 2017
+
+
    enrollment protocol.  The Pledge is EALS client and the Join
    Registrar/Coordinator is EALS server.
 
@@ -194,7 +244,7 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
    full enrollment protocol can be transported over any channel, and the
    binding to CoAP is described in this document.
 
-2.2.  Simple Enrollment
+3.2.  Simple Enrollment
 
    The simple enrollment is a 2-pass protocol between EALS client and
    EALS server.  Simple enrollment assumes that client and server has
@@ -216,21 +266,22 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
          |                                                       |
 
 
-                    Figure 1: The Simple EALS Protocol.
-
-
-
-
-Selander & Raza          Expires August 25, 2017                [Page 4]
-
-Internet-Draft Enrollment with Application Layer Security  February 2017
-
+                    Figure 2: The Simple EALS Protocol.
 
    The protocol consists of an OSCOAP exchange using the security
    context derived from the shared master secret.  The EALS client sends
    an OSCOAP POST to /simpleeals, request payload is the certificate
    signing request (PKCS#10).  The EALS server MUST verify that the DN
    in PKCS#10 corresponds to the security context with which the
+
+
+
+
+Selander & Raza          Expires August 28, 2017                [Page 5]
+
+Internet-Draft Enrollment with Application Layer Security  February 2017
+
+
    received OSCOAP request was protected.  Since OSCOAP has sequence
    number-based replay protection, the EALS server rejects old requests.
 
@@ -249,12 +300,12 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
    TBD Stateless proxy, recap and reference minimal security draft
 
-2.3.  Full Enrollment
+3.3.  Full Enrollment
 
    The full enrollment procedure consists of a mutual authentication and
    authorization step, using EDHOC with an enrollment extension defined
    in this section, followed by the simple enrollment protocol
-   (Section 2.2).  The EDHOC protocol [I-D.selander-ace-cose-ecdhe]
+   (Section 3.2).  The EDHOC protocol [I-D.selander-ace-cose-ecdhe]
    establishes the master secret used with the simple enrollment
    protocol for first enrollment or subsequent re-enrollments.
 
@@ -277,7 +328,12 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 5]
+
+
+
+
+
+Selander & Raza          Expires August 28, 2017                [Page 6]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
@@ -300,11 +356,11 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
          |                                                       |
 
 
-            Figure 2: Mutual authentication and authorization.
+            Figure 3: Mutual authentication and authorization.
 
    The enrollment procedure described here is assuming that the EALS
    server/Join Registrar/Coordinator is EDHOC client, see figure
-   Figure 2.  This setting has the properties that the
+   Figure 3.  This setting has the properties that the
 
    1.  The EALS server initiates the protocol
 
@@ -333,26 +389,26 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 6]
+Selander & Raza          Expires August 28, 2017                [Page 7]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
-3.  Security Considerations
+4.  Security Considerations
 
-4.  Privacy Considerations
+5.  Privacy Considerations
 
    TODO
 
-5.  IANA Considerations
+6.  IANA Considerations
 
-6.  Acknowledgments
+7.  Acknowledgments
 
    The authors wants to thank
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [I-D.ietf-core-object-security]
               Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
@@ -389,12 +445,12 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 7]
+Selander & Raza          Expires August 28, 2017                [Page 8]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
-7.2.  Informative References
+8.2.  Informative References
 
    [I-D.bormann-6lo-coap-802-15-ie]
               Bormann, C., "Constrained Application Protocol (CoAP) over
@@ -445,7 +501,7 @@ Internet-Draft Enrollment with Application Layer Security  February 2017
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 8]
+Selander & Raza          Expires August 28, 2017                [Page 9]
 
 Internet-Draft Enrollment with Application Layer Security  February 2017
 
@@ -501,4 +557,4 @@ Authors' Addresses
 
 
 
-Selander & Raza          Expires August 25, 2017                [Page 9]
+Selander & Raza          Expires August 28, 2017               [Page 10]
