@@ -283,8 +283,8 @@ address {
 <link href="#rfc.section.3" rel="Chapter" title="3 Establishment of OSCOAP Input Parameters"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 ACE"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 EDHOC"/>
-<link href="#rfc.section.4" rel="Chapter" title="4 Application to 6tisch"/>
-<link href="#rfc.section.5" rel="Chapter" title="5 Application to Anima"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Application to 6TiSCH"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Application to ANIMA"/>
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations"/>
 <link href="#rfc.section.7" rel="Chapter" title="7 Privacy Considerations"/>
 <link href="#rfc.section.8" rel="Chapter" title="8 IANA Considerations"/>
@@ -301,7 +301,7 @@ address {
 
   <meta name="dct.creator" content="Selander, G., Raza, S., and M. Vucinic" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-selander-ace-eals-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-3-02" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-3-03" />
   <meta name="dct.abstract" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
   <meta name="description" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
 
@@ -325,7 +325,7 @@ address {
   <td class="right">S. Raza</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 3, 2017</td>
+  <td class="left">Expires: September 4, 2017</td>
   <td class="right">RISE SICS</td>
 </tr>
 <tr>
@@ -338,7 +338,7 @@ address {
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 02, 2017</td>
+  <td class="right">March 03, 2017</td>
 </tr>
 
     	
@@ -358,7 +358,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 3, 2017.</p>
+<p>This Internet-Draft will expire on September 4, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -376,8 +376,8 @@ address {
 <li>3.   <a href="#rfc.section.3">Establishment of OSCOAP Input Parameters</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">ACE</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">EDHOC</a></li>
-</ul><li>4.   <a href="#rfc.section.4">Application to 6tisch</a></li>
-<li>5.   <a href="#rfc.section.5">Application to Anima</a></li>
+</ul><li>4.   <a href="#rfc.section.4">Application to 6TiSCH</a></li>
+<li>5.   <a href="#rfc.section.5">Application to ANIMA</a></li>
 <li>6.   <a href="#rfc.section.6">Security Considerations</a></li>
 <li>7.   <a href="#rfc.section.7">Privacy Considerations</a></li>
 <li>8.   <a href="#rfc.section.8">IANA Considerations</a></li>
@@ -444,7 +444,7 @@ client                                                 server
   <li>Sender ID</li>
   <li>Recipient ID</li>
 </ul>
-<p id="rfc.section.2.p.10">where the master secret is a uniformly random byte string, and the sender ID of the client is the recipient ID of the server and v.v. In <a href="#establish-input-parameters">Section 3</a> we give examples of how to the OSCOAP input parameters can be established.</p>
+<p id="rfc.section.2.p.10">where the Master Secret is a uniformly random byte string, and the Sender ID and Recipient ID are byte strings identifying the endpoints. In <a href="#establish-input-parameters">Section 3</a> we give examples of how to the OSCOAP input parameters can be established.</p>
 <p id="rfc.section.2.p.11">The server MUST verify that the Master Secret is associated to the Distinguished Name for which the client is requesting a certificate.</p>
 <p id="rfc.section.2.p.12">Note 1: The encodings and formats used by CMC may later be updated with other equivalents more adapted to constrained environments.</p>
 <p id="rfc.section.2.p.13">TBD: Further details</p>
@@ -452,8 +452,7 @@ client                                                 server
 <p id="rfc.section.3.p.1">In this section we present two application layer protocols for establishing OSCOAP input parameters (Section 3.3 of <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>), in particular the OSCOAP master secret.</p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#ace" id="ace">ACE</a></h1>
 <p id="rfc.section.3.1.p.1">The ACE protocol framework <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a> is an adaptation of OAuth 2.0 to IoT deployments. ACE describes different message flows for a Client to get authorized access to a Resource Server (RS) by leveraging an Authorization Server (AS).</p>
-<p id="rfc.section.3.1.p.2">The Token Introspection flow (Section 7 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>) allows an RS to access authorization information relating to a client provided access token. If the access token is valid, the RS obtains information about the access rights and a symmetric key used by the client, and also a client token containing the same shared key protected for the legitimate client (Section 7.4 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>, <a href="#ACE-introspect">Figure 2</a>).</p>
-<p id="rfc.section.3.1.p.3">By mapping the EALS client and server to the ACE client and resource server, respectively, this application of ACE enables the authorization of EALS client and establishment of a shared key, which can be used as master secret with OSCOAP in the simple enrollment protocol (<a href="#simple-enroll">Section 2</a>). In this case, the access token is not bound to a particular resource server and could be pre-provisioned to the client, e.g. during manufacture. The access rights include the right to get enrolled in this key infrastructure.</p>
+<p id="rfc.section.3.1.p.2">The Token Introspection flow (Section 7 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>) allows an RS to access authorization information relating to a client provided Access Token. If the access token is valid, the RS obtains information about the access rights and a symmetric key used by the client, and also a Client Token containing the same shared key protected for the legitimate client (Section 7.4 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>, <a href="#ACE-introspect">Figure 2</a>).</p>
 <div id="rfc.figure.2"/>
 <div id="ACE-introspect"/>
 <pre>
@@ -479,7 +478,8 @@ client                                                 server
 
 </pre>
 <p class="figure">Figure 2: ACE Token Introspection with Client Token.</p>
-<p id="rfc.section.3.1.p.4">Section 2 of <a href="#I-D.seitz-ace-oscoap-profile">[I-D.seitz-ace-oscoap-profile]</a> defines additional common header parameters for COSE_Key structure that are used to carry OSCOAP input parameters Sender and Recipient ID.  OSCOAP master secret is transported as part of the symmetric COSE_Key object.  This document uses the same construct.  COSE_Key object with OSCOAP input parameters present is transported as part of the introspection response and the client token.</p>
+<p id="rfc.section.3.1.p.3">By mapping the EALS client and server to the ACE client and resource server, respectively, this application of ACE enables the authorization of EALS client and establishment of a shared key, which can be used as master secret with OSCOAP in the simple enrollment protocol (<a href="#simple-enroll">Section 2</a>). In this case, the access token contains access rights to /eals, but is not bound to a particular resource server. The access token could be pre-provisioned to the client, e.g. during manufacture. Information about binding to resource server comes with the introspection response.</p>
+<p id="rfc.section.3.1.p.4">Section 2 of <a href="#I-D.seitz-ace-oscoap-profile">[I-D.seitz-ace-oscoap-profile]</a> defines additional common header parameters for COSE_Key structure that are used to carry OSCOAP input parameters Sender and Recipient ID. OSCOAP master secret is transported as part of the symmetric COSE_Key object. This document uses the same construct. COSE_Key object with OSCOAP input parameters present is transported as part of the introspection response and the client token.</p>
 <p id="rfc.section.3.1.p.5">For the benefit of the client authorizing the enrollment, this document defines an additional common parameter for the client token called voucher, extending the definition in Section 7.4 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>:</p>
 <pre>
 voucher
@@ -496,9 +496,10 @@ voucher
 \-------------------+----------+-----------------/
 </pre>
 <p class="figure">Figure 3: CBOR mapping of parameters extending the client token.</p>
+<p id="rfc.section.3.1.p.6">TBD Include Sender/Recipient ID in COSE_Key object (Client Token) as well as (v.v.) in Introspection Response</p>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#sec-edhoc" id="sec-edhoc">EDHOC</a></h1>
 <p id="rfc.section.3.2.p.1">EDHOC <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a> is a key establishment protocol encoded with CBOR and using COSE that may be transported with e.g. CoAP. EDHOC provides mutual authentication of client and server and establishes a shared secret with forward secrecy which may be used as OSCOAP master secret in the simple enrollment protocol (<a href="#simple-enroll">Section 2</a>).</p>
-<p id="rfc.section.3.2.p.2">A simplified version of the EDHOC protocol is shown in <a href="#fig-EDHOC">Figure 4</a>. The session identifiers S_U and S_V may be chosen by U and V to work as OSCOAP parameters Sender ID and Recipient ID. The extension parameters EXT_1, EXT_2 and EXT_3 allows for application specific extensions.</p>
+<p id="rfc.section.3.2.p.2">The asymmetric keys authenticated version of EDHOC is described in section 4 of <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a>, a simplified version of the protocol is shown in <a href="#fig-EDHOC">Figure 4</a>.</p>
 <div id="rfc.figure.4"/>
 <div id="fig-EDHOC"/>
 <pre>
@@ -515,9 +516,15 @@ Party U                                                    Party V
 
 
 </pre>
-<p class="figure">Figure 4: EDHOC with asymmetric key authentication (simplified).</p>
-<p id="rfc.section.3.2.p.3">TBD specify extension containing authorization information, such as ownership voucher</p>
-<p><a href="#fig-EDHOC-EALS">Figure 5</a> describes one example of mapping the EDHOC protocol to establishing a mutually authenticated and authorized channel for the simple enrolment protocol.</p>
+<p class="figure">Figure 4: EDHOC with asymmetric key authentication (simplified). S = session identifer, N = nonce, E = ephemeral public key, ID = identifier, and EXT = application defined extension.</p>
+<p id="rfc.section.3.2.p.3">The session identifiers S_U and S_V may be used as OSCOAP input parameters Sender ID and Recipient ID of party U, and v.v. as described in Appendix B2 of <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a>.</p>
+<p><a href="#fig-EDHOC-EALS">Figure 5</a> shows an example of using the EDHOC protocol to establish a mutually authenticated and authorized channel for the simple enrolment protocol. In this case the EALS server is EDHOC client (the mapping with interchanged roles is straightforward and left FFS). This setting has the following properties:</p>
+<p/>
+
+<ol>
+  <li>The EALS server initiates the EDHOC protocol. This allows the EALS server (Registration Authority of a PKI) to orchestrate many concurrent enrollments, and control of the associated network load.</li>
+  <li>The EALS client is authenticated first (EDHOC message_2). This allows the EALS server to authenticate the EALS client, and with this information to authorize the EALS client before completing the EDHOC protocol. The EALS server may in this case also relay authorizaton information about the EALS client, such as an ownership voucher, to the client in EDHOC extension EXT_3.</li>
+</ol>
 <div id="rfc.figure.5"/>
 <div id="fig-EDHOC-EALS"/>
 <pre>
@@ -533,35 +540,26 @@ client                                   server
   |                                        |                       
   |            EDHOC message_2             |                       
   +---------------------------------------&gt;|    Third party           
-  |                                        | &lt;-----------------&gt;            
-  |    EDHOC message_3  (EXT_3 = Voucher)  |    authorization
+  |                                        | &lt; - - - - - - - - &gt;            
+  |  EDHOC message_3 (EXT_3 = Authz info)  |    authorization
   |&lt;---------------------------------------+                       
   |                                        |                        
 
 </pre>
 <p class="figure">Figure 5: EALS extension of EDHOC.</p>
-<p id="rfc.section.3.2.p.5">The enrollment procedure described here is assuming that the EALS server/Join Registrar/Coordinator is EDHOC client. This setting has the properties that the</p>
-<p/>
-
-<ol>
-  <li>The EALS server initiates the protocol</li>
-  <li>The EALS client is authenticated first (EDHOC message_2)</li>
-</ol>
-<p id="rfc.section.3.2.p.7">Item 1. allows the EALS server to orchestrate many concurrent enrollments. Item 2. allows the EALS server to authenticate and authorize the EALS client before completing the protocol.</p>
-<p id="rfc.section.3.2.p.8">For certain deployment settings the reverse roles may be favorable, and it is straightforward to embed the enrolment protocol in EDHOC with interchanged roles. The details are FFS.</p>
-<p id="rfc.section.3.2.p.9">TBD Detail the protocol</p>
-<p id="rfc.section.3.2.p.10">TBD CoAP binding. Same as in EDHOC?</p>
-<p id="rfc.section.3.2.p.11">TBD name of resource? POST /edhoc?</p>
-<p id="rfc.section.3.2.p.12">TBD CoAP Response codes to communicate success or failure of the EALS function?</p>
-<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#application-to-6tisch" id="application-to-6tisch">Application to 6tisch</a></h1>
-<p id="rfc.section.4.p.1">One candidate embedding of EALS into a bootstrapping architecture is as described in <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a>.  The new device, or pledge in 6TiSCH terminology, requests to be admitted into the network managed by the Join Registrar/Coordinator.  The Pledge maps to an EALS/CoAP client, and the Join Registrar/Coordinator maps to an EALS/CoAP server.</p>
-<p id="rfc.section.4.p.2">When a pledge first joins a constrained network, it typically does not have IPv6 connectivity to reach the Join Registrar/Coordinator.  For that reason, pledge communicates with the Join Proxy, a one hop neighbor of the pledge.  Join Proxy statelessly relays the exchanges between the pledge and the Join Registrar/Coordinator.</p>
-<p id="rfc.section.4.p.3">As in the model of <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a>, the Join Proxy plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps state information in order to relay the response back to the originating client, in this case the pledge.  To mitigate Denial of Service attacks at the Join Proxy, <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a> mandates the use of a new CoAP option, Stateless-Proxy option, that allows the Join Proxy to operate statelessly.  This document also mandates the use of the Stateless-Proxy option.</p>
-<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#application-to-anima" id="application-to-anima">Application to Anima</a></h1>
-<p id="rfc.section.5.p.1">Another application of EALS is to the BRSKI <a href="#I-D.ietf-anima-bootstrapping-keyinfra">[I-D.ietf-anima-bootstrapping-keyinfra]</a> problem statement. BRSKI specifies an automated bootstrapping of a remote secure key infrastructure (BRSKI) using vendor installed X.509 certificate, in combination with a vendor authorized service on the Internet. BRSKI is referencing Enrolment over Secure Transport (EST) <a href="#RFC7030">[RFC7030]</a> to enable zero-touch joining of a device in a network domain.  The problem statement from BRSKI is imported into this document:</p>
-<p id="rfc.section.5.p.2">Bootstrapping a new device can occur using a routable address and a cloud service, or using only link-local connectivity, or on limited/ disconnected networks.  Support for lower security models, including devices with minimal identity, is described for legacy reasons but not encouraged.  Bootstrapping is complete when the cryptographic identity of the new key infrastructure is successfully deployed to the device but the established secure connection can be used to deploy a locally issued certificate to the device as well.</p>
-<p id="rfc.section.5.p.3">The audit/ownership vouchers specified in <a href="#I-D.ietf-anima-bootstrapping-keyinfra">[I-D.ietf-anima-bootstrapping-keyinfra]</a> are carried as part of EDHOC application-defined extensions, as described in <a href="#sec-edhoc">Section 3.2</a>.</p>
-<p id="rfc.section.5.p.4">The limitations of applicability to energy-constrained devices due to credential size applies also to this document, and further work is needed to specify certificate formats relevant to constrained devices.  Having said that, one rationale for this document is a more optimized message exchange, which is favorable in low-power deployments.</p>
+<p id="rfc.section.3.2.p.6">Appendix B1 of <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a> shows how to embed EDHOC in a CoAP message exchange, a similar embedding can be applied here.</p>
+<p id="rfc.section.3.2.p.7">TBD Detail the protocol</p>
+<p id="rfc.section.3.2.p.8">TBD name of resource? POST /edhoc?</p>
+<p id="rfc.section.3.2.p.9">TBD CoAP Response codes to communicate success or failure of the EALS function?</p>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#application-to-6tisch" id="application-to-6tisch">Application to 6TiSCH</a></h1>
+<p id="rfc.section.4.p.1">One candidate embedding of EALS into a bootstrapping architecture is as described in <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a>. The new device (a.k.a. Pledge) requests to be admitted into the network managed by the Join Registrar/Coordinator. The Pledge maps to an EALS/CoAP client, and the Join Registrar/Coordinator maps to an EALS/CoAP server.</p>
+<p id="rfc.section.4.p.2">When a pledge first joins a constrained network, it typically does not have IPv6 connectivity to reach the Join Registrar/Coordinator. For that reason, pledge communicates with the Join Proxy, a one hop neighbor of the pledge.  Join Proxy statelessly relays the exchanges between the pledge and the Join Registrar/Coordinator.</p>
+<p id="rfc.section.4.p.3">As in the model of <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a>, the Join Proxy plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps state information in order to relay the response back to the originating client, in this case the pledge. To mitigate Denial of Service attacks at the Join Proxy, <a href="#I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</a> mandates the use of a new CoAP option, Stateless-Proxy option, that allows the Join Proxy to operate statelessly.</p>
+<p id="rfc.section.4.p.4">The use of EDHOC as described in <a href="#sec-edhoc">Section 3.2</a> enables mutual authentication and authorization of Pledge and Join Registrar/Coordinator, and supports the use of the Stateless-Proxy option in order to provide the CoAP Proxy functionality described in this section.</p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#application-to-anima" id="application-to-anima">Application to ANIMA</a></h1>
+<p id="rfc.section.5.p.1">Another application of EALS is to the BRSKI <a href="#I-D.ietf-anima-bootstrapping-keyinfra">[I-D.ietf-anima-bootstrapping-keyinfra]</a> problem statement. BRSKI specifies an automated bootstrapping of a remote secure key infrastructure (BRSKI) using vendor installed X.509 certificate, in combination with a vendor authorized service on the Internet. BRSKI is referencing Enrolment over Secure Transport (EST) <a href="#RFC7030">[RFC7030]</a> to enable zero-touch joining of a device in a network domain. The same approach can be applied using EDHOC instead of EST, as is outlined in this document.</p>
+<p id="rfc.section.5.p.2">The audit/ownership vouchers specified in <a href="#I-D.ietf-anima-bootstrapping-keyinfra">[I-D.ietf-anima-bootstrapping-keyinfra]</a> are carried as part of EDHOC application-defined extensions, as described in <a href="#sec-edhoc">Section 3.2</a>. Nonces of the EDHOC protocol can be used for freshness also of the authorization step.</p>
+<p id="rfc.section.5.p.3">The limitations of applicability to energy-constrained devices due to credential size applies also to this document, and further work is needed to specify certificate formats relevant to constrained devices.  Having said that, one rationale for this document is a more optimized message exchange, and potentially also code footprint, which is favorable in low-power deployments.</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#sec-cons" id="sec-cons">Security Considerations</a></h1>
 <h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#privacy-considerations" id="privacy-considerations">Privacy Considerations</a></h1>
 <p id="rfc.section.7.p.1">TODO</p>
@@ -615,12 +613,6 @@ client                                   server
   <tbody>
     <tr>
       <td class="reference">
-        <b id="I-D.bormann-6lo-coap-802-15-ie">[I-D.bormann-6lo-coap-802-15-ie]</b>
-      </td>
-      <td class="top"><a>Bormann, C.</a>, "<a href="http://tools.ietf.org/html/draft-bormann-6lo-coap-802-15-ie-00">Constrained Application Protocol (CoAP) over IEEE 802.15.4 Information Element for IETF</a>", Internet-Draft draft-bormann-6lo-coap-802-15-ie-00, April 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
         <b id="I-D.hartke-core-e2e-security-reqs">[I-D.hartke-core-e2e-security-reqs]</b>
       </td>
       <td class="top"><a>Selander, G.</a>, <a>Palombini, F.</a> and <a>K. Hartke</a>, "<a href="http://tools.ietf.org/html/draft-hartke-core-e2e-security-reqs-02">Requirements for CoAP End-To-End Security</a>", Internet-Draft draft-hartke-core-e2e-security-reqs-02, January 2017.</td>
@@ -642,18 +634,6 @@ client                                   server
         <b id="I-D.ietf-anima-bootstrapping-keyinfra">[I-D.ietf-anima-bootstrapping-keyinfra]</b>
       </td>
       <td class="top"><a>Pritikin, M.</a>, <a>Richardson, M.</a>, <a>Behringer, M.</a>, <a>Bjarnason, S.</a> and <a>K. Watsen</a>, "<a href="http://tools.ietf.org/html/draft-ietf-anima-bootstrapping-keyinfra-04">Bootstrapping Remote Secure Key Infrastructures (BRSKI)</a>", Internet-Draft draft-ietf-anima-bootstrapping-keyinfra-04, October 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.ietf-core-coap-tcp-tls">[I-D.ietf-core-coap-tcp-tls]</b>
-      </td>
-      <td class="top"><a>Bormann, C.</a>, <a>Lemay, S.</a>, <a>Tschofenig, H.</a>, <a>Hartke, K.</a>, <a>Silverajan, B.</a> and <a>B. Raymor</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-coap-tcp-tls-06">CoAP (Constrained Application Protocol) over TCP, TLS, and WebSockets</a>", Internet-Draft draft-ietf-core-coap-tcp-tls-06, February 2017.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.richardson-6tisch-dtsecurity-secure-join">[I-D.richardson-6tisch-dtsecurity-secure-join]</b>
-      </td>
-      <td class="top"><a>Richardson, M.</a>, "<a href="http://tools.ietf.org/html/draft-richardson-6tisch-dtsecurity-secure-join-01">6tisch Secure Join protocol</a>", Internet-Draft draft-richardson-6tisch-dtsecurity-secure-join-01, October 2016.</td>
     </tr>
     <tr>
       <td class="reference">
