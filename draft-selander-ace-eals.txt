@@ -5,10 +5,10 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: September 6, 2017                                     RISE SICS
+Expires: September 8, 2017                                     RISE SICS
                                                               M. Vucinic
                                                                    Inria
-                                                          March 05, 2017
+                                                          March 07, 2017
 
 
                Enrollment with Application Layer Security
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 6, 2017.
+   This Internet-Draft will expire on September 8, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander, et al.        Expires September 6, 2017               [Page 1]
+Selander, et al.        Expires September 8, 2017               [Page 1]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -85,6 +85,20 @@ Table of Contents
 
 1.  Introduction
 
+   Asymmetric cryptography with Public Key Infrastructure (PKI) is a de-
+   facto key exchange and mutual authentication solution in the
+   Internet.  Though solutions based on PSK are still state-of-the-art
+   in sensor networks they are not scalable to Internet-connected
+   billions of things.  Therefore, most IoT security standards support
+   asymmetric cryptographic protocols.  The greatest challenge with
+   asymmetric cryptography and PKI is enrollment, the process of
+   certifying keys.  Enrollment is even more challenging in the IoT as
+   things are resource-constrained and traditional enrollment techniques
+   are not compatible with recent IoT security protocols.  Without
+   secure enrollment, PKI will not be trustworthy and in turn the
+   cybersecurity of the entire system will be at stake even though the
+   underlying cryptographic cipher suites are most secure.
+
    Security at the application layer provides an attractive option for
    protecting Internet of Things (IoT) deployments, in particular in
    constrained environments [RFC7228] and when using CoAP [RFC7252]; for
@@ -92,6 +106,13 @@ Table of Contents
    [I-D.hartke-core-e2e-security-reqs], or where it is beneficial that
    the security protocol is independent of lower layers, such as when
    securing CoAP over mixed transport protocols.
+
+
+
+Selander, et al.        Expires September 8, 2017               [Page 2]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
    Application layer security protocols suitable for constrained devices
    are in development, including the secure communication protocol
@@ -105,14 +126,6 @@ Table of Contents
    EDHOC can leverage other constrained device primitives developed in
    the IETF: CoAP, CBOR [RFC7049] and COSE [I-D.ietf-cose-msg], and
    makes only a small additional implementation footprint.
-
-
-
-
-Selander, et al.        Expires September 6, 2017               [Page 2]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
 
    Lately, there has been a discussion in several IETF working groups
    about certificate enrollment protocols suitable for IoT devices, to
@@ -144,42 +157,33 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    [I-D.ietf-core-object-security].
 
    The simple enrollment protocol is a 2-pass protocol between EALS
-   client and EALS server, see Figure 1.  The protocol assumes that both
-   EALS client and EALS server implement CoAP and the Object-Security
-   option of CoAP (OSCOAP).
+   client ( an IoT devices) and EALS server (a CA- Certification
+   Authority), see Figure 1.  The protocol assumes that both EALS client
+   and EALS server implement CoAP and the Object-Security option of CoAP
+   (OSCOAP).
+
+
+
+
+Selander, et al.        Expires September 8, 2017               [Page 3]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
    TBD.  Add paragraph stating that authentication and authorization of
    EALS client and server is implicit to the shared key protecting the
    /eals resource.
 
+     EALS client                                          EALS server
+     (IoT device)                                             (CA)
 
-
-
-
-
-
-
-
-
-
-
-
-
-Selander, et al.        Expires September 6, 2017               [Page 3]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
-        EALS                                                   EALS
-       client                                                 server
-
-         |                                                       |
-         | POST /eals      (Object-Security; Payload: PKCS #10)  |
-         +------------------------------------------------------>|
-         |                                                       |
-         |  2.04 Changed   (Object-Security; Payload: PKCS #7)   |
-         |<------------------------------------------------------+
-         |                                                       |
+       |                                                       |
+       | POST /eals      (Object-Security; Payload: PKCS #10)  |
+       +------------------------------------------------------>|
+       |                                                       |
+       |  2.04 Changed   (Object-Security; Payload: PKCS #7)   |
+       |<------------------------------------------------------+
+       |                                                       |
 
 
                  Figure 1: The Simple Enrollment Protocol.
@@ -215,16 +219,16 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    Parameters (Section 3.3 of [I-D.ietf-core-object-security]),
    including at least the following:
 
-   o  Master Secret
-
-   o  Sender ID
 
 
-
-Selander, et al.        Expires September 6, 2017               [Page 4]
+Selander, et al.        Expires September 8, 2017               [Page 4]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   o  Master Secret
+
+   o  Sender ID
 
    o  Recipient ID
 
@@ -269,18 +273,17 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    Token containing the same shared key protected for the legitimate
    client (Section 7.4 of [I-D.ietf-ace-oauth-authz], Figure 2).
 
-   TBD.  Describe how authentication between Client and Resource Server
-   is performed.  Same for RS<->AS flow.
 
 
 
 
-
-
-Selander, et al.        Expires September 6, 2017               [Page 5]
+Selander, et al.        Expires September 8, 2017               [Page 5]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   TBD.  Describe how authentication between Client and Resource Server
+   is performed.  Same for RS<->AS flow.
 
                                   Resource       Authorization
                  Client            Server           Server
@@ -330,10 +333,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-
-
-
-Selander, et al.        Expires September 6, 2017               [Page 6]
+Selander, et al.        Expires September 8, 2017               [Page 6]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -389,7 +389,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.        Expires September 6, 2017               [Page 7]
+Selander, et al.        Expires September 8, 2017               [Page 7]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -445,7 +445,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.        Expires September 6, 2017               [Page 8]
+Selander, et al.        Expires September 8, 2017               [Page 8]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -501,7 +501,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.        Expires September 6, 2017               [Page 9]
+Selander, et al.        Expires September 8, 2017               [Page 9]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -557,7 +557,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.        Expires September 6, 2017              [Page 10]
+Selander, et al.        Expires September 8, 2017              [Page 10]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -613,7 +613,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.        Expires September 6, 2017              [Page 11]
+Selander, et al.        Expires September 8, 2017              [Page 11]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -669,4 +669,4 @@ Authors' Addresses
 
 
 
-Selander, et al.        Expires September 6, 2017              [Page 12]
+Selander, et al.        Expires September 8, 2017              [Page 12]
