@@ -5,10 +5,10 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: September 8, 2017                                     RISE SICS
+Expires: September 9, 2017                                     RISE SICS
                                                               M. Vucinic
                                                                    Inria
-                                                          March 07, 2017
+                                                          March 08, 2017
 
 
                Enrollment with Application Layer Security
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 8, 2017.
+   This Internet-Draft will expire on September 9, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Selander, et al.        Expires September 8, 2017               [Page 1]
+Selander, et al.        Expires September 9, 2017               [Page 1]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -68,17 +68,18 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Simple Enrollment . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Re-enrollment . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Establishment of OSCOAP Input Parameters  . . . . . . . . . .   5
-     3.1.  ACE . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.1.  ACE . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.2.  EDHOC . . . . . . . . . . . . . . . . . . . . . . . . . .   7
    4.  Application to 6TiSCH . . . . . . . . . . . . . . . . . . . .   9
-   5.  Application to ANIMA  . . . . . . . . . . . . . . . . . . . .   9
+   5.  Application to ANIMA  . . . . . . . . . . . . . . . . . . . .  10
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
    7.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  10
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  10
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  10
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  11
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
      10.2.  Informative References . . . . . . . . . . . . . . . . .  11
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
@@ -104,15 +105,17 @@ Table of Contents
    constrained environments [RFC7228] and when using CoAP [RFC7252]; for
    example where transport layer security is not sufficient
    [I-D.hartke-core-e2e-security-reqs], or where it is beneficial that
-   the security protocol is independent of lower layers, such as when
-   securing CoAP over mixed transport protocols.
 
 
 
-Selander, et al.        Expires September 8, 2017               [Page 2]
+
+Selander, et al.        Expires September 9, 2017               [Page 2]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   the security protocol is independent of lower layers, such as when
+   securing CoAP over mixed transport protocols.
 
    Application layer security protocols suitable for constrained devices
    are in development, including the secure communication protocol
@@ -159,20 +162,25 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    The simple enrollment protocol is a 2-pass protocol between EALS
    client ( an IoT devices) and EALS server (a CA- Certification
    Authority), see Figure 1.  The protocol assumes that both EALS client
-   and EALS server implement CoAP and the Object-Security option of CoAP
-   (OSCOAP).
 
 
 
-
-Selander, et al.        Expires September 8, 2017               [Page 3]
+Selander, et al.        Expires September 9, 2017               [Page 3]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
-   TBD.  Add paragraph stating that authentication and authorization of
-   EALS client and server is implicit to the shared key protecting the
-   /eals resource.
+   and EALS server implement CoAP and the Object-Security option of CoAP
+   (OSCOAP).
+
+   OSCOAP assumes the existence of a shared secret between an EALS
+   client and server.  The shared secret may be obtained by running a
+   key agreement algorithm or by an aid of a trusted third party.
+   Mutual authentication and authorization occurs during this key
+   agreement stage.  The simple enrollment protocol may also be run
+   directly with a pre-shared key.  In that case, authentication and
+   authorization of EALS client and server is implicit to the shared key
+   protecting the /eals resource.
 
      EALS client                                          EALS server
      (IoT device)                                             (CA)
@@ -209,6 +217,15 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
    o  Object-Security option is present
 
+
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 4]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
+
    o  Payload is a certs-only CMC Simple PKI Response [RFC5272] (i.e the
       issued certificate)
 
@@ -218,13 +235,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    server.  The security context can be derived from a set of Input
    Parameters (Section 3.3 of [I-D.ietf-core-object-security]),
    including at least the following:
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 4]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
 
    o  Master Secret
 
@@ -243,11 +253,18 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    Note 1: The encodings and formats used by CMC may later be updated
    with other equivalents more adapted to constrained environments.
 
+2.1.  Re-enrollment
+
+   Re-enrollment and re-keying of clients occurs using the same exchange
+   as during the simple enrollment protocol.  Re-enrollment request
+   follows the same format as during the simple enrollment.  In case of
+   success, re-enrollment response contains certs-only CMC Simple PKI
+   Response, as in the case of simple enrollment with content-format set
+   to "application/pkcs7-mime".
+
    TBD.  Requirements on parsing PKCS messages and X.509 certificates
 
    TBD.  Error handling with CoAP error codes
-
-   TBD.  Re-enrollment protocol
 
    TBD.  Server-side key generation
 
@@ -257,6 +274,13 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    establishing OSCOAP input parameters (Section 3.3 of
    [I-D.ietf-core-object-security]), in particular the OSCOAP master
    secret.
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 5]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
 3.1.  ACE
 
@@ -272,15 +296,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    rights and a symmetric key used by the client, and also a Client
    Token containing the same shared key protected for the legitimate
    client (Section 7.4 of [I-D.ietf-ace-oauth-authz], Figure 2).
-
-
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 5]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
 
    TBD.  Describe how authentication between Client and Resource Server
    is performed.  Same for RS<->AS flow.
@@ -315,6 +330,14 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    protocol (Section 2).  In this case, the access token contains access
    rights to /eals, but is not bound to a particular resource server.
    The access token could be pre-provisioned to the client, e.g. during
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 6]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
+
    manufacture.  Information about binding to resource server comes with
    the introspection response.
 
@@ -330,13 +353,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    document defines an additional common parameter for the client token
    called voucher, extending the definition in Section 7.4 of
    [I-D.ietf-ace-oauth-authz]:
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 6]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
 
    voucher
        OPTIONAL. Contains authorization information about the server,
@@ -365,6 +381,19 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    section 4 of [I-D.selander-ace-cose-ecdhe], a simplified version of
    the protocol is shown in Figure 4.
 
+
+
+
+
+
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 7]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
+
     Party U                                                    Party V
        |                   S_U, N_U, E_U, EXT_1                   |
        +--------------------------------------------------------->|
@@ -386,14 +415,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    parameters Sender ID and Recipient ID of party U, and v.v. as
    described in Appendix B2 of [I-D.selander-ace-cose-ecdhe].
 
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 7]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
    Figure 5 shows an example of using the EDHOC protocol to establish a
    mutually authenticated and authorized channel for the simple
    enrolment protocol.  In this case the EALS server is EDHOC client
@@ -411,6 +432,23 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
        the EDHOC protocol.  The EALS server may in this case also relay
        authorizaton information about the EALS client, such as an
        ownership voucher, to the client in EDHOC extension EXT_3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 8]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
       EALS                                     EALS
      client                                   server
@@ -442,14 +480,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    TBD CoAP Response codes to communicate success or failure of the EALS
    function?
 
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 8]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
 4.  Application to 6TiSCH
 
    One candidate embedding of EALS into a bootstrapping architecture is
@@ -468,6 +498,14 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    As in the model of [I-D.ietf-6tisch-minimal-security], the Join Proxy
    plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps
    state information in order to relay the response back to the
+
+
+
+Selander, et al.        Expires September 9, 2017               [Page 9]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
+
    originating client, in this case the pledge.  To mitigate Denial of
    Service attacks at the Join Proxy, [I-D.ietf-6tisch-minimal-security]
    mandates the use of a new CoAP option, Stateless-Proxy option, that
@@ -497,15 +535,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    of the EDHOC protocol can be used for freshness also of the
    authorization step.
 
-
-
-
-
-Selander, et al.        Expires September 8, 2017               [Page 9]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
    The limitations of applicability to energy-constrained devices due to
    credential size applies also to this document, and further work is
    needed to specify certificate formats relevant to constrained
@@ -520,6 +549,18 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    TODO
 
 8.  IANA Considerations
+
+
+
+
+
+
+
+
+Selander, et al.        Expires September 9, 2017              [Page 10]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
 9.  Acknowledgments
 
@@ -552,16 +593,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <http://www.rfc-editor.org/info/rfc7049>.
 
-
-
-
-
-
-Selander, et al.        Expires September 8, 2017              [Page 10]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
@@ -578,6 +609,14 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
               Vucinic, M., Simon, J., and K. Pister, "Minimal Security
               Framework for 6TiSCH", draft-ietf-6tisch-minimal-
               security-01 (work in progress), February 2017.
+
+
+
+
+Selander, et al.        Expires September 9, 2017              [Page 11]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
+
 
    [I-D.ietf-ace-oauth-authz]
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
@@ -610,14 +649,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
               DOI 10.17487/RFC7228, May 2014,
               <http://www.rfc-editor.org/info/rfc7228>.
 
-
-
-
-Selander, et al.        Expires September 8, 2017              [Page 11]
-
-Internet-Draft Enrollment with Application Layer Security     March 2017
-
-
 Appendix A.  Examples
 
 Authors' Addresses
@@ -629,6 +660,18 @@ Authors' Addresses
    Sweden
 
    Email: goran.selander@ericsson.com
+
+
+
+
+
+
+
+
+
+Selander, et al.        Expires September 9, 2017              [Page 12]
+
+Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
    Shahid Raza
@@ -669,4 +712,17 @@ Authors' Addresses
 
 
 
-Selander, et al.        Expires September 8, 2017              [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+Selander, et al.        Expires September 9, 2017              [Page 13]

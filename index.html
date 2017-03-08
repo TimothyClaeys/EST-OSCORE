@@ -280,6 +280,7 @@ address {
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology"/>
 <link href="#rfc.section.2" rel="Chapter" title="2 Simple Enrollment"/>
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Re-enrollment"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Establishment of OSCOAP Input Parameters"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 ACE"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 EDHOC"/>
@@ -301,7 +302,7 @@ address {
 
   <meta name="dct.creator" content="Selander, G., Raza, S., and M. Vucinic" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-selander-ace-eals-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-3-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-3-08" />
   <meta name="dct.abstract" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
   <meta name="description" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
 
@@ -325,7 +326,7 @@ address {
   <td class="right">S. Raza</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 8, 2017</td>
+  <td class="left">Expires: September 9, 2017</td>
   <td class="right">RISE SICS</td>
 </tr>
 <tr>
@@ -338,7 +339,7 @@ address {
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 07, 2017</td>
+  <td class="right">March 08, 2017</td>
 </tr>
 
     	
@@ -358,7 +359,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 8, 2017.</p>
+<p>This Internet-Draft will expire on September 9, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -373,7 +374,8 @@ address {
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
 <ul><li>1.1.   <a href="#rfc.section.1.1">Terminology</a></li>
 </ul><li>2.   <a href="#rfc.section.2">Simple Enrollment</a></li>
-<li>3.   <a href="#rfc.section.3">Establishment of OSCOAP Input Parameters</a></li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Re-enrollment</a></li>
+</ul><li>3.   <a href="#rfc.section.3">Establishment of OSCOAP Input Parameters</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">ACE</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">EDHOC</a></li>
 </ul><li>4.   <a href="#rfc.section.4">Application to 6TiSCH</a></li>
@@ -402,7 +404,7 @@ address {
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#simple-enroll" id="simple-enroll">Simple Enrollment</a></h1>
 <p id="rfc.section.2.p.1">This section describes the simple enrollment protocol, which is an embedding of the Simple PKI Request/Response protocol of CMC <a href="#RFC5272">[RFC5272]</a> in Object Secure CoAP (OSCOAP) <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>.</p>
 <p id="rfc.section.2.p.2">The simple enrollment protocol is a 2-pass protocol between EALS client ( an IoT devices) and EALS server (a CA- Certification Authority), see <a href="#fig-simple-enroll">Figure 1</a>. The protocol assumes that both EALS client and EALS server implement CoAP and the Object-Security option of CoAP (OSCOAP).</p>
-<p id="rfc.section.2.p.3">TBD. Add paragraph stating that authentication and authorization of EALS client and server is implicit to the shared key protecting the /eals resource.</p>
+<p id="rfc.section.2.p.3">OSCOAP assumes the existence of a shared secret between an EALS client and server.  The shared secret may be obtained by running a key agreement algorithm or by an aid of a trusted third party.  Mutual authentication and authorization occurs during this key agreement stage.  The simple enrollment protocol may also be run directly with a pre-shared key.  In that case, authentication and authorization of EALS client and server is implicit to the shared key protecting the /eals resource.</p>
 <div id="rfc.figure.1"/>
 <div id="fig-simple-enroll"/>
 <pre>
@@ -449,10 +451,11 @@ EALS client                                          EALS server
 <p id="rfc.section.2.p.11">where the Master Secret is a uniformly random byte string, and the Sender ID and Recipient ID are byte strings identifying the endpoints. In <a href="#establish-input-parameters">Section 3</a> we give examples of how to the OSCOAP input parameters can be established.</p>
 <p id="rfc.section.2.p.12">The server MUST verify that the Master Secret is associated to the Distinguished Name for which the client is requesting a certificate.</p>
 <p id="rfc.section.2.p.13">Note 1: The encodings and formats used by CMC may later be updated with other equivalents more adapted to constrained environments.</p>
-<p id="rfc.section.2.p.14">TBD. Requirements on parsing PKCS messages and X.509 certificates</p>
-<p id="rfc.section.2.p.15">TBD. Error handling with CoAP error codes</p>
-<p id="rfc.section.2.p.16">TBD. Re-enrollment protocol</p>
-<p id="rfc.section.2.p.17">TBD. Server-side key generation</p>
+<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#re-enrollment" id="re-enrollment">Re-enrollment</a></h1>
+<p id="rfc.section.2.1.p.1">Re-enrollment and re-keying of clients occurs using the same exchange as during the simple enrollment protocol. Re-enrollment request follows the same format as during the simple enrollment. In case of success, re-enrollment response contains certs-only CMC Simple PKI Response, as in the case of simple enrollment with content-format set to "application/pkcs7-mime".</p>
+<p id="rfc.section.2.1.p.2">TBD. Requirements on parsing PKCS messages and X.509 certificates</p>
+<p id="rfc.section.2.1.p.3">TBD. Error handling with CoAP error codes</p>
+<p id="rfc.section.2.1.p.4">TBD. Server-side key generation</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#establish-input-parameters" id="establish-input-parameters">Establishment of OSCOAP Input Parameters</a></h1>
 <p id="rfc.section.3.p.1">In this section we present two application layer protocols for establishing OSCOAP input parameters (Section 3.3 of <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>), in particular the OSCOAP master secret.</p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#ace" id="ace">ACE</a></h1>
