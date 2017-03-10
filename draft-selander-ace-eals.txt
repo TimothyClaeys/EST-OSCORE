@@ -19,9 +19,9 @@ Expires: September 11, 2017                                    RISE SICS
 Abstract
 
    This document specifies public key certificate enrollment procedures
-   authenticated with application layer security protocols suitable for
+   authenticated with application-layer security protocols suitable for
    Internet of Things deployments.  The protocols leverage existing IoT
-   standards including Constrained Appliction Protocol (CoAP), Concise
+   standards including Constrained Application Protocol (CoAP), Concise
    Binary Object Representation (CBOR) and the CBOR Object Signing and
    Encryption (COSE) format.
 
@@ -563,7 +563,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
    mandates the use of a new CoAP option, Stateless-Proxy option, that
-   allows the Join Proxy to operate statelessly.
+   allows the Join Proxy to operate without keeping per-client state.
 
    The use of EDHOC as described in Section 3.1 enables mutual
    authentication and authorization of Pledge and Join Registrar/
