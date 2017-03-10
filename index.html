@@ -279,8 +279,11 @@ address {
   <link href="#rfc.toc" rel="Contents"/>
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology"/>
-<link href="#rfc.section.2" rel="Chapter" title="2 Simple Enrollment"/>
-<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Re-enrollment"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 CMC protocol"/>
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Simple Enrollment"/>
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Re-enrollment"/>
+<link href="#rfc.section.2.3" rel="Chapter" title="2.3 Full Enrollment"/>
+<link href="#rfc.section.2.4" rel="Chapter" title="2.4 Establishing Certificate Content"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Establishment of OSCOAP Input Parameters"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 ACE"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 EDHOC"/>
@@ -300,9 +303,9 @@ address {
   <meta name="generator" content="xml2rfc version 2.5.2 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Selander, G., Raza, S., and M. Vucinic" />
+  <meta name="dct.creator" content="Selander, G., Raza, S., Vucinic, M., and M. Furuhed" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-selander-ace-eals-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-3-08" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-3-10" />
   <meta name="dct.abstract" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
   <meta name="description" content="This document specifies public key certificate enrollment procedures authenticated with application layer security protocols suitable for Internet of Things deployments. The protocols leverage existing IoT standards including Constrained Appliction Protocol (CoAP), Concise Binary Object Representation (CBOR) and the CBOR Object Signing and Encryption (COSE) format." />
 
@@ -326,7 +329,7 @@ address {
   <td class="right">S. Raza</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 9, 2017</td>
+  <td class="left">Expires: September 11, 2017</td>
   <td class="right">RISE SICS</td>
 </tr>
 <tr>
@@ -339,7 +342,15 @@ address {
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 08, 2017</td>
+  <td class="right">M. Furuhed</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Nexus</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">March 10, 2017</td>
 </tr>
 
     	
@@ -359,7 +370,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 9, 2017.</p>
+<p>This Internet-Draft will expire on September 11, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -373,8 +384,11 @@ address {
 
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
 <ul><li>1.1.   <a href="#rfc.section.1.1">Terminology</a></li>
-</ul><li>2.   <a href="#rfc.section.2">Simple Enrollment</a></li>
-<ul><li>2.1.   <a href="#rfc.section.2.1">Re-enrollment</a></li>
+</ul><li>2.   <a href="#rfc.section.2">CMC protocol</a></li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Simple Enrollment</a></li>
+<li>2.2.   <a href="#rfc.section.2.2">Re-enrollment</a></li>
+<li>2.3.   <a href="#rfc.section.2.3">Full Enrollment</a></li>
+<li>2.4.   <a href="#rfc.section.2.4">Establishing Certificate Content</a></li>
 </ul><li>3.   <a href="#rfc.section.3">Establishment of OSCOAP Input Parameters</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">ACE</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">EDHOC</a></li>
@@ -397,19 +411,19 @@ address {
 <p id="rfc.section.1.p.1">Asymmetric cryptography with Public Key Infrastructure (PKI) is a de-facto key exchange and mutual authentication solution in the Internet. Though solutions based on PSK are still state-of-the-art in sensor networks they are not scalable to Internet-connected billions of things. Therefore, most IoT security standards support asymmetric cryptographic protocols. The greatest challenge with asymmetric cryptography and PKI is enrollment, the process of certifying keys. Enrollment is even more challenging in the IoT as things are resource-constrained and traditional enrollment techniques are not compatible with recent IoT security protocols. Without secure enrollment, PKI will not be trustworthy and in turn the cybersecurity of the entire system will be at stake even though the underlying cryptographic cipher suites are most secure.</p>
 <p id="rfc.section.1.p.2">Security at the application layer provides an attractive option for protecting Internet of Things (IoT) deployments, in particular in constrained environments <a href="#RFC7228">[RFC7228]</a> and when using CoAP <a href="#RFC7252">[RFC7252]</a>; for example where transport layer security is not sufficient <a href="#I-D.hartke-core-e2e-security-reqs">[I-D.hartke-core-e2e-security-reqs]</a>, or where it is beneficial that the security protocol is independent of lower layers, such as when securing CoAP over mixed transport protocols.</p>
 <p id="rfc.section.1.p.3">Application layer security protocols suitable for constrained devices are in development, including the secure communication protocol OSCOAP <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>. OSCOAP defines an extension to the Constrained Application Protocol (CoAP) providing encryption, integrity and replay protection end-to-end between CoAP client and server based on a shared secret. The shared secret can be established in different ways e.g. using a trusted third party such as in ACE <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>, or using a key exchange protocol such as EDHOC <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a>. OSCOAP and EDHOC can leverage other constrained device primitives developed in the IETF: CoAP, CBOR <a href="#RFC7049">[RFC7049]</a> and COSE <a href="#I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</a>, and makes only a small additional implementation footprint.</p>
-<p id="rfc.section.1.p.4">Lately, there has been a discussion in several IETF working groups about certificate enrollment protocols suitable for IoT devices, to support the use case of an IoT device joining a new network domain and establishing credentials valid in this domain. This document describes Enrollment with Application Layer Security (EALS), a certificate enrollment protocol based on the Simple PKI Requests and Responses of CMC <a href="#RFC5272">[RFC5272]</a> and using OSCOAP as a secure channel. This document also describes how ACE and EDHOC can be used for establishing an authenticated and authorized channel.</p>
+<p id="rfc.section.1.p.4">Lately, there has been a discussion in several IETF working groups about certificate enrollment protocols suitable for IoT devices, to support the use case of an IoT device joining a new network domain and establishing credentials valid in this domain. This document describes Enrollment with Application Layer Security (EALS), a certificate enrollment protocol based on CMC <a href="#RFC5272">[RFC5272]</a> and using OSCOAP as a secure channel. This document also describes how ACE and EDHOC can be used for establishing an authenticated and authorized channel.</p>
 <p id="rfc.section.1.p.5">This work is inspired by the Enrollment over Secure Transport (EST) protocol <a href="#RFC7030">[RFC7030]</a>, which also is based on CMC, but EALS is secured on application layer instead of on transport layer.</p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#terminology" id="terminology">Terminology</a></h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>. These words may also appear in this document in lowercase, absent their normative meanings.</p>
-<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#simple-enroll" id="simple-enroll">Simple Enrollment</a></h1>
-<p id="rfc.section.2.p.1">This section describes the simple enrollment protocol, which is an embedding of the Simple PKI Request/Response protocol of CMC <a href="#RFC5272">[RFC5272]</a> in Object Secure CoAP (OSCOAP) <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>.</p>
-<p id="rfc.section.2.p.2">The simple enrollment protocol is a 2-pass protocol between EALS client ( an IoT devices) and EALS server (a CA- Certification Authority), see <a href="#fig-simple-enroll">Figure 1</a>. The protocol assumes that both EALS client and EALS server implement CoAP and the Object-Security option of CoAP (OSCOAP).</p>
-<p id="rfc.section.2.p.3">OSCOAP assumes the existence of a shared secret between an EALS client and server.  The shared secret may be obtained by running a key agreement algorithm or by an aid of a trusted third party.  Mutual authentication and authorization occurs during this key agreement stage.  The simple enrollment protocol may also be run directly with a pre-shared key.  In that case, authentication and authorization of EALS client and server is implicit to the shared key protecting the /eals resource.</p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#cmc-protocol" id="cmc-protocol">CMC protocol</a></h1>
+<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#simple-enroll" id="simple-enroll">Simple Enrollment</a></h1>
+<p id="rfc.section.2.1.p.1">This section describes the simple enrollment protocol, which is an embedding of the Simple PKI Request/Response protocol of CMC <a href="#RFC5272">[RFC5272]</a> in Object Secure CoAP (OSCOAP) <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>.</p>
+<p id="rfc.section.2.1.p.2">The simple enrollment protocol is a 2-pass protocol between an EALS client (e.g. an IoT device) and an EALS server (a Certification Authority (CA)), see <a href="#fig-simple-enroll">Figure 1</a>. The protocol assumes that both EALS client and EALS server implement CoAP and the Object-Security option of CoAP (OSCOAP).</p>
+<p id="rfc.section.2.1.p.3">OSCOAP assumes the existence of a shared secret between an EALS client and server.  The shared secret may be obtained by running a key agreement algorithm or by an aid of a trusted third party.  Mutual authentication and authorization occurs during this key agreement stage.  The simple enrollment protocol may also be run directly with a pre-shared key.  In that case, authentication and authorization of EALS client and server is implicit to the shared key protecting the /eals resource.</p>
 <div id="rfc.figure.1"/>
 <div id="fig-simple-enroll"/>
 <pre>
 EALS client                                          EALS server 
-(IoT device)                                             (CA)        
 
   |                                                       | 
   | POST /eals      (Object-Security; Payload: PKCS #10)  |  
@@ -421,8 +435,8 @@ EALS client                                          EALS server
 
 </pre>
 <p class="figure">Figure 1: The Simple Enrollment Protocol.</p>
-<p id="rfc.section.2.p.4">The simple enrollment protocol consists of a CoAP message exchange.</p>
-<p id="rfc.section.2.p.5">The EALS client sends a CoAP request:</p>
+<p id="rfc.section.2.1.p.4">The simple enrollment protocol consists of a CoAP message exchange.</p>
+<p id="rfc.section.2.1.p.5">The EALS client sends a CoAP request:</p>
 <p/>
 
 <ul>
@@ -431,7 +445,7 @@ EALS client                                          EALS server
   <li>Object-Security option is present</li>
   <li>Payload is the CMC Simple PKI Request <a href="#RFC5272">[RFC5272]</a> (i.e. a PKCS #10 certification request).</li>
 </ul>
-<p id="rfc.section.2.p.7">If successful, the EALS server sends a CoAP response:</p>
+<p id="rfc.section.2.1.p.7">If successful, the EALS server sends a CoAP response:</p>
 <p/>
 
 <ul>
@@ -440,7 +454,7 @@ EALS client                                          EALS server
   <li>Object-Security option is present</li>
   <li>Payload is a certs-only CMC Simple PKI Response <a href="#RFC5272">[RFC5272]</a> (i.e the issued certificate)</li>
 </ul>
-<p id="rfc.section.2.p.9">OSCOAP protects the CoAP message exchange between the endpoints over any transport and via intermediary nodes. The OSCOAP protection requires that a security context is established between client and server. The security context can be derived from a set of Input Parameters (Section 3.3 of <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>), including at least the following:</p>
+<p id="rfc.section.2.1.p.9">OSCOAP protects the CoAP message exchange between the endpoints over any transport and via intermediary nodes. The OSCOAP protection requires that a security context is established between client and server. The security context can be derived from a set of Input Parameters (Section 3.3 of <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>), including at least the following:</p>
 <p/>
 
 <ul>
@@ -448,14 +462,24 @@ EALS client                                          EALS server
   <li>Sender ID</li>
   <li>Recipient ID</li>
 </ul>
-<p id="rfc.section.2.p.11">where the Master Secret is a uniformly random byte string, and the Sender ID and Recipient ID are byte strings identifying the endpoints. In <a href="#establish-input-parameters">Section 3</a> we give examples of how to the OSCOAP input parameters can be established.</p>
-<p id="rfc.section.2.p.12">The server MUST verify that the Master Secret is associated to the Distinguished Name for which the client is requesting a certificate.</p>
-<p id="rfc.section.2.p.13">Note 1: The encodings and formats used by CMC may later be updated with other equivalents more adapted to constrained environments.</p>
-<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#re-enrollment" id="re-enrollment">Re-enrollment</a></h1>
-<p id="rfc.section.2.1.p.1">Re-enrollment and re-keying of clients occurs using the same exchange as during the simple enrollment protocol. Re-enrollment request follows the same format as during the simple enrollment. In case of success, re-enrollment response contains certs-only CMC Simple PKI Response, as in the case of simple enrollment with content-format set to "application/pkcs7-mime".</p>
-<p id="rfc.section.2.1.p.2">TBD. Requirements on parsing PKCS messages and X.509 certificates</p>
-<p id="rfc.section.2.1.p.3">TBD. Error handling with CoAP error codes</p>
-<p id="rfc.section.2.1.p.4">TBD. Server-side key generation</p>
+<p id="rfc.section.2.1.p.11">where the Master Secret is a uniformly random byte string, and the Sender ID and Recipient ID are byte strings identifying the endpoints. In <a href="#establish-input-parameters">Section 3</a> we give examples of how to the OSCOAP input parameters can be established.</p>
+<p id="rfc.section.2.1.p.12">The server MUST verify that the Master Secret is associated to the Distinguished Name for which the client is requesting a certificate.</p>
+<p id="rfc.section.2.1.p.13">Note 1: The encodings and formats used by CMC may later be updated with other equivalents more adapted to constrained environments.</p>
+<h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#re-enrollment" id="re-enrollment">Re-enrollment</a></h1>
+<p id="rfc.section.2.2.p.1">Re-enrollment and re-keying of clients occurs using the same exchange as during the simple enrollment protocol. Re-enrollment request follows the same format as during the simple enrollment. In case of success, re-enrollment response contains certs-only CMC Simple PKI Response, as in the case of simple enrollment with content-format set to "application/pkcs7-mime".</p>
+<p id="rfc.section.2.2.p.2">TBD. Requirements on parsing PKCS messages and X.509 certificates</p>
+<p id="rfc.section.2.2.p.3">TBD. Error handling with CoAP error codes</p>
+<p id="rfc.section.2.2.p.4">TBD. Server-side key generation</p>
+<h1 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3.</a> <a href="#full-enroll" id="full-enroll">Full Enrollment</a></h1>
+<p id="rfc.section.2.3.p.1">It is straightforward to extend the simple enrollment to the CMC Full PKI Request/Response protocol.</p>
+<p id="rfc.section.2.3.p.2">In this case, to authorize the PKCS#10 request to the CA, it is enveloped in a CMC message and signed with a pre-installed device private key and certificate by the device itself.</p>
+<p id="rfc.section.2.3.p.3">The public key in the device certificate acts as a unique identifier of the device. By trusting the CA issuing the pre-installed certificate, the enrolment CA can acknowledge the signed request. The trusted factory CA will also ensure the origin of the device.</p>
+<p id="rfc.section.2.3.p.4">An alternative to authorize the PKCS#10 request to the CA, is to use a security gateway that can envelope the request in a CMC message using a certificate trusted by the CA.</p>
+<p id="rfc.section.2.3.p.5">The details are FFS.</p>
+<h1 id="rfc.section.2.4"><a href="#rfc.section.2.4">2.4.</a> <a href="#establish-content" id="establish-content">Establishing Certificate Content</a></h1>
+<p id="rfc.section.2.4.p.1">A CA have several means of compiling certificate content during issuance. The subject Distinguished Name (DN) information for the certificate may be based on the content of the request alone.</p>
+<p id="rfc.section.2.4.p.2">Alternatively, complementary data can be added to the request by the CA from an external source trusted by the CA, or taken from records of pre-registered information on end-entities that is stored in the CA system and which can be uniquely matched to the data in the request. Due to the constrained device capabilities the amount of subject DN data in a request may be very limited. The method of adding complementary data for the certificate can be a choice of the CA, assuming the source of complementary data can be provided in a trustworthy way.</p>
+<p id="rfc.section.2.4.p.3">With the option to add complementary data to a certificate request, the end-entity provided data can be minimized by submitting only the public key in the PKCS#10 content. The public key can be used to match the device to pre-registered data or for retrieval of subject data from other sources.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#establish-input-parameters" id="establish-input-parameters">Establishment of OSCOAP Input Parameters</a></h1>
 <p id="rfc.section.3.p.1">In this section we present two application layer protocols for establishing OSCOAP input parameters (Section 3.3 of <a href="#I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</a>), in particular the OSCOAP master secret.</p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#ace" id="ace">ACE</a></h1>
@@ -487,7 +511,7 @@ EALS client                                          EALS server
 
 </pre>
 <p class="figure">Figure 2: ACE Token Introspection with Client Token.</p>
-<p id="rfc.section.3.1.p.4">By mapping the EALS client and server to the ACE client and resource server, respectively, this application of ACE enables the authorization of EALS client and establishment of a shared key, which can be used as master secret with OSCOAP in the simple enrollment protocol (<a href="#simple-enroll">Section 2</a>). In this case, the access token contains access rights to /eals, but is not bound to a particular resource server. The access token could be pre-provisioned to the client, e.g. during manufacture. Information about binding to resource server comes with the introspection response.</p>
+<p id="rfc.section.3.1.p.4">By mapping the EALS client and server to the ACE client and resource server, respectively, this application of ACE enables the authorization of EALS client and establishment of a shared key, which can be used as master secret with OSCOAP in the simple enrollment protocol (<a href="#simple-enroll">Section 2.1</a>). In this case, the access token contains access rights to /eals, but is not bound to a particular resource server. The access token could be pre-provisioned to the client, e.g. during manufacture. Information about binding to resource server comes with the introspection response.</p>
 <p id="rfc.section.3.1.p.5">Section 2 of <a href="#I-D.seitz-ace-oscoap-profile">[I-D.seitz-ace-oscoap-profile]</a> defines additional common header parameters for COSE_Key structure that are used to carry OSCOAP input parameters Sender and Recipient ID. OSCOAP master secret is transported as part of the symmetric COSE_Key object. This document uses the same construct. COSE_Key object with OSCOAP input parameters present is transported as part of the introspection response and the client token.</p>
 <p id="rfc.section.3.1.p.6">For the benefit of the client authorizing the enrollment, this document defines an additional common parameter for the client token called voucher, extending the definition in Section 7.4 of <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>:</p>
 <pre>
@@ -507,7 +531,7 @@ voucher
 <p class="figure">Figure 3: CBOR mapping of parameters extending the client token.</p>
 <p id="rfc.section.3.1.p.7">TBD Include Sender/Recipient ID in COSE_Key object (Client Token) as well as (v.v.) in Introspection Response</p>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#sec-edhoc" id="sec-edhoc">EDHOC</a></h1>
-<p id="rfc.section.3.2.p.1">EDHOC <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a> is a key establishment protocol encoded with CBOR and using COSE that may be transported with e.g. CoAP. EDHOC provides mutual authentication of client and server and establishes a shared secret with forward secrecy which may be used as OSCOAP master secret in the simple enrollment protocol (<a href="#simple-enroll">Section 2</a>).</p>
+<p id="rfc.section.3.2.p.1">EDHOC <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a> is a key establishment protocol encoded with CBOR and using COSE that may be transported with e.g. CoAP. EDHOC provides mutual authentication of client and server and establishes a shared secret with forward secrecy which may be used as OSCOAP master secret in the simple enrollment protocol (<a href="#simple-enroll">Section 2.1</a>).</p>
 <p id="rfc.section.3.2.p.2">The asymmetric keys authenticated version of EDHOC is described in section 4 of <a href="#I-D.selander-ace-cose-ecdhe">[I-D.selander-ace-cose-ecdhe]</a>, a simplified version of the protocol is shown in <a href="#fig-EDHOC">Figure 4</a>.</p>
 <div id="rfc.figure.4"/>
 <div id="fig-EDHOC"/>
@@ -581,6 +605,12 @@ client                                   server
   <tbody>
     <tr>
       <td class="reference">
+        <b id="I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</b>
+      </td>
+      <td class="top"><a>Seitz, L.</a>, <a>Selander, G.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="http://tools.ietf.org/html/draft-ietf-ace-oauth-authz-05">Authentication and Authorization for Constrained Environments (ACE)</a>", Internet-Draft draft-ietf-ace-oauth-authz-05, February 2017.</td>
+    </tr>
+    <tr>
+      <td class="reference">
         <b id="I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</b>
       </td>
       <td class="top"><a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-object-security-01">Object Security of CoAP (OSCOAP)</a>", Internet-Draft draft-ietf-core-object-security-01, December 2016.</td>
@@ -631,12 +661,6 @@ client                                   server
         <b id="I-D.ietf-6tisch-minimal-security">[I-D.ietf-6tisch-minimal-security]</b>
       </td>
       <td class="top"><a>Vucinic, M.</a>, <a>Simon, J.</a> and <a>K. Pister</a>, "<a href="http://tools.ietf.org/html/draft-ietf-6tisch-minimal-security-01">Minimal Security Framework for 6TiSCH</a>", Internet-Draft draft-ietf-6tisch-minimal-security-01, February 2017.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</b>
-      </td>
-      <td class="top"><a>Seitz, L.</a>, <a>Selander, G.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="http://tools.ietf.org/html/draft-ietf-ace-oauth-authz-05">Authentication and Authorization for Constrained Environments (ACE)</a>", Internet-Draft draft-ietf-ace-oauth-authz-05, February 2017.</td>
     </tr>
     <tr>
       <td class="reference">
@@ -738,6 +762,28 @@ client                                   server
 	  <span class="country-name vcardline">France</span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:malisa.vucinic@inria.fr">malisa.vucinic@inria.fr</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Martin Furuhed</span> 
+	  <span class="n hidden">
+		<span class="family-name">Furuhed</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Nexus</span>
+	<span class="adr">
+	  <span class="vcardline">Telefonv. 26</span>
+
+	  <span class="vcardline">
+		<span class="locality">Stockholm</span>,  
+		<span class="region"></span>
+		<span class="code">SE-12626</span>
+	  </span>
+	  <span class="country-name vcardline">Sweden</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:martin.furuhed@nexusgroup.com">martin.furuhed@nexusgroup.com</a></span>
 
   </address>
 </div>
