@@ -81,11 +81,11 @@ Table of Contents
      3.1.  EDHOC . . . . . . . . . . . . . . . . . . . . . . . . . .   7
      3.2.  ACE . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
    4.  Application to 6TiSCH . . . . . . . . . . . . . . . . . . . .  10
-   5.  Application to ANIMA  . . . . . . . . . . . . . . . . . . . .  11
+   5.  Application to BRSKI  . . . . . . . . . . . . . . . . . . . .  11
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    7.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  11
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  11
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  12
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  12
      10.2.  Informative References . . . . . . . . . . . . . . . . .  12
@@ -454,16 +454,17 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    client (Section 7.4 of [I-D.ietf-ace-oauth-authz], Figure 4).
 
    This message flow assumes that the Client and AS, as well as the RS
-   and AS, has or can establish a mutually authenticted secure channel
+   and AS, has or can establish a mutually authenticated secure channel
    such that:
 
-   o  the AS can encrypt the symmetric key for the Client, and the
-      Client can verify the Client Token is issued by the AS.
+   o  The AS can encrypt the symmetric key for the Client in the Client
+      Token, and the Client can verify the Client Token is issued by the
+      AS;
 
-   o  The RS and AS exchange encrypted, integrity and replay protected
-      introspection messages.  In this case, the establishment of the
-      secure channel can take place immediately before introspection,
-      triggered by the RS receiveing the Access Token.
+   o  The RS and AS can exchange encrypted, integrity and replay
+      protected introspection messages.  In this case, the establishment
+      of the secure channel can take place immediately before
+      introspection, triggered by the RS receiveing the Access Token.
 
                                   Resource       Authorization
                  Client            Server           Server
@@ -472,6 +473,9 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
                     +--------------->|                |
                     |  POST          |                |
                     |  Access Token  |                |
+                    |                |<- - - - - - - >|
+                    |                |(Authentication)|
+                    |                |                |
                     |                +--------------->|
                     |                | Introspection  |
                     |                |    Request     |
@@ -493,11 +497,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    authorization of EALS client and establishment of a shared key, which
    can be used as master secret with OSCOAP in the CMC protocol
    (Section 2).  In this case, the access token contains access rights
-   to /eals, but is not bound to a particular resource server.  The
-   access token could be pre-provisioned to the client, e.g. during
-   manufacture, and the AS would in this case represent the device
-   manufacturer.  Information about binding to resource server comes
-   with the introspection response.
+   to /eals, but is not (yet) bound to a particular resource server.
 
 
 
@@ -506,17 +506,21 @@ Selander, et al.       Expires September 13, 2017               [Page 9]
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
+   The access token could be pre-provisioned to the client, e.g. during
+   manufacture.  Information about binding to resource server comes with
+   the introspection response.
+
    Section 2 of [I-D.seitz-ace-oscoap-profile] defines additional common
    header parameters for COSE_Key structure that are used to carry
    OSCOAP input parameters Sender and Recipient ID.  The OSCOAP master
    secret is transported as part of the symmetric COSE_Key object.  This
    document uses the same construct: COSE_Key object with OSCOAP input
-   parameters present is transported as part of the introspection
-   response and in the client token.
+   parameters present is transported as part of the Introspection
+   Response and in the Client Token.
 
    For the benefit of the client authorizing the enrollment, this
-   document defines an additional common parameter for the client token
-   called voucher, extending the definition in Section 7.4 of
+   document defines an additional common parameter for the Client Token
+   called Voucher, extending the definition in Section 7.4 of
    [I-D.ietf-ace-oauth-authz]:
 
    voucher
@@ -531,8 +535,9 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
      Figure 5: CBOR mapping of parameters extending the client token.
 
-   TBD Include Sender/Recipient ID in COSE_Key object (Client Token) as
-   well as (v.v.) in Introspection Response
+   Additionally, the certificate attributes presented by the Client in
+   the enrolment request (Section 2) may be carried in the Client Token.
+   The encoding is TBD.
 
 4.  Application to 6TiSCH
 
@@ -549,11 +554,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    neighbor of the pledge.  Join Proxy statelessly relays the exchanges
    between the pledge and the Join Registrar/Coordinator.
 
-   As in the model of [I-D.ietf-6tisch-minimal-security], the Join Proxy
-   plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps
-   state information in order to relay the response back to the
-   originating client, in this case the pledge.  To mitigate Denial of
-   Service attacks at the Join Proxy, [I-D.ietf-6tisch-minimal-security]
 
 
 
@@ -562,6 +562,11 @@ Selander, et al.       Expires September 13, 2017              [Page 10]
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
+   As in the model of [I-D.ietf-6tisch-minimal-security], the Join Proxy
+   plays the role of a CoAP proxy.  Default CoAP proxy, however, keeps
+   state information in order to relay the response back to the
+   originating client, in this case the pledge.  To mitigate Denial of
+   Service attacks at the Join Proxy, [I-D.ietf-6tisch-minimal-security]
    mandates the use of a new CoAP option, Stateless-Proxy option, that
    allows the Join Proxy to operate without keeping per-client state.
 
@@ -571,7 +576,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    order to provide the CoAP Proxy functionality described in this
    section.
 
-5.  Application to ANIMA
+5.  Application to BRSKI
 
    Another application of EALS is to the BRSKI
    [I-D.ietf-anima-bootstrapping-keyinfra] problem statement.  BRSKI
@@ -602,11 +607,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 8.  IANA Considerations
 
-9.  Acknowledgments
-
-   The authors wants to thank Michael Richardson and the 6tisch security
-   design team for discussions and input contributing to this document.
-
 
 
 
@@ -617,6 +617,11 @@ Selander, et al.       Expires September 13, 2017              [Page 11]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+9.  Acknowledgments
+
+   The authors wants to thank the participants of the 6tisch security
+   design team for discussions and input contributing to this document.
 
 10.  References
 
@@ -658,11 +663,6 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 10.2.  Informative References
 
-   [I-D.hartke-core-e2e-security-reqs]
-              Selander, G., Palombini, F., and K. Hartke, "Requirements
-              for CoAP End-To-End Security", draft-hartke-core-e2e-
-              security-reqs-02 (work in progress), January 2017.
-
 
 
 
@@ -673,6 +673,11 @@ Selander, et al.       Expires September 13, 2017              [Page 12]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   [I-D.hartke-core-e2e-security-reqs]
+              Selander, G., Palombini, F., and K. Hartke, "Requirements
+              for CoAP End-To-End Security", draft-hartke-core-e2e-
+              security-reqs-02 (work in progress), January 2017.
 
    [I-D.ietf-6tisch-minimal-security]
               Vucinic, M., Simon, J., and K. Pister, "Minimal Security
@@ -715,11 +720,6 @@ Authors' Addresses
    Sweden
 
    Email: goran.selander@ericsson.com
-
-
-
-
-
 
 
 
