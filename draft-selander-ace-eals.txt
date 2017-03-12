@@ -5,12 +5,14 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: September 11, 2017                                    RISE SICS
+Expires: September 13, 2017                                    RISE SICS
                                                               M. Vucinic
                                                                    Inria
                                                               M. Furuhed
                                                                    Nexus
-                                                          March 10, 2017
+                                                           M. Richardson
+                                                Sandelman Software Works
+                                                          March 12, 2017
 
 
                Enrollment with Application Layer Security
@@ -40,24 +42,25 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 11, 2017.
+   This Internet-Draft will expire on September 13, 2017.
 
 Copyright Notice
 
    Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
 
 
 
-Selander, et al.       Expires September 11, 2017               [Page 1]
+
+Selander, et al.       Expires September 13, 2017               [Page 1]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -69,7 +72,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  CMC protocol  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  CMC protocol  . . . . . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Simple Enrollment . . . . . . . . . . . . . . . . . . . .   4
      2.2.  Re-enrollment . . . . . . . . . . . . . . . . . . . . . .   5
      2.3.  Full Enrollment . . . . . . . . . . . . . . . . . . . . .   6
@@ -102,17 +105,17 @@ Table of Contents
    things are resource-constrained and traditional enrollment techniques
    are not compatible with recent IoT security protocols.  Without
    secure enrollment, PKI will not be trustworthy and in turn the
-   cybersecurity of the entire system will be at stake even though the
-   underlying cryptographic cipher suites are most secure.
 
 
 
 
-
-Selander, et al.       Expires September 11, 2017               [Page 2]
+Selander, et al.       Expires September 13, 2017               [Page 2]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   cybersecurity of the entire system will be at stake even though the
+   underlying cryptographic cipher suites are most secure.
 
    Security at the application layer provides an attractive option for
    protecting Internet of Things (IoT) deployments, in particular in
@@ -157,18 +160,17 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    words may also appear in this document in lowercase, absent their
    normative meanings.
 
-2.  CMC protocol
 
 
 
 
 
-
-
-Selander, et al.       Expires September 11, 2017               [Page 3]
+Selander, et al.       Expires September 13, 2017               [Page 3]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+2.  CMC protocol
 
 2.1.  Simple Enrollment
 
@@ -215,16 +217,17 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
    o  Object-Security option is present
 
-   o  Payload is the CMC Simple PKI Request [RFC5272] (i.e. a PKCS #10
-      certification request).
 
 
 
 
-Selander, et al.       Expires September 11, 2017               [Page 4]
+Selander, et al.       Expires September 13, 2017               [Page 4]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   o  Payload is the CMC Simple PKI Request [RFC5272] (i.e. a PKCS #10
+      certification request).
 
    If successful, the EALS server sends a CoAP response:
 
@@ -272,15 +275,14 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
    TBD.  Requirements on parsing PKCS messages and X.509 certificates
 
-   TBD.  Error handling with CoAP error codes
 
 
-
-
-Selander, et al.       Expires September 11, 2017               [Page 5]
+Selander, et al.       Expires September 13, 2017               [Page 5]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
+
+   TBD.  Error handling with CoAP error codes
 
    TBD.  Server-side key generation
 
@@ -331,9 +333,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-
-
-Selander, et al.       Expires September 11, 2017               [Page 6]
+Selander, et al.       Expires September 13, 2017               [Page 6]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -389,7 +389,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017               [Page 7]
+Selander, et al.       Expires September 13, 2017               [Page 7]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -445,7 +445,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017               [Page 8]
+Selander, et al.       Expires September 13, 2017               [Page 8]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -501,7 +501,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017               [Page 9]
+Selander, et al.       Expires September 13, 2017               [Page 9]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -557,7 +557,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017              [Page 10]
+Selander, et al.       Expires September 13, 2017              [Page 10]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -613,7 +613,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017              [Page 11]
+Selander, et al.       Expires September 13, 2017              [Page 11]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -669,7 +669,7 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-Selander, et al.       Expires September 11, 2017              [Page 12]
+Selander, et al.       Expires September 13, 2017              [Page 12]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -725,7 +725,7 @@ Authors' Addresses
 
 
 
-Selander, et al.       Expires September 11, 2017              [Page 13]
+Selander, et al.       Expires September 13, 2017              [Page 13]
 
 Internet-Draft Enrollment with Application Layer Security     March 2017
 
@@ -757,6 +757,13 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
    Email: martin.furuhed@nexusgroup.com
 
 
+   Michael Richardson
+   Sandelman Software Works
+   470 Dawson Avenue
+   Ottawa, ON  K1Z5V7
+   Canada
+
+   Email: mcr+ietf@sandelman.ca
 
 
 
@@ -774,11 +781,4 @@ Internet-Draft Enrollment with Application Layer Security     March 2017
 
 
 
-
-
-
-
-
-
-
-Selander, et al.       Expires September 11, 2017              [Page 14]
+Selander, et al.       Expires September 13, 2017              [Page 14]
