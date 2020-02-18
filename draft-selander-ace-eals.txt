@@ -5,14 +5,14 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: 24 July 2020                                          RISE SICS
+Expires: 21 August 2020                                        RISE SICS
                                                               M. Vucinic
                                                                    Inria
                                                               M. Furuhed
                                                                    Nexus
                                                            M. Richardson
                                                 Sandelman Software Works
-                                                         21 January 2020
+                                                        18 February 2020
 
 
                Enrollment with Application Layer Security
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 July 2020.
+   This Internet-Draft will expire on 21 August 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 1]
+Selander, et al.         Expires 21 August 2020                 [Page 1]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 2]
+Selander, et al.         Expires 21 August 2020                 [Page 2]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    Security at the application layer provides an attractive option for
@@ -165,9 +165,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 3]
+Selander, et al.         Expires 21 August 2020                 [Page 3]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
 2.1.  Simple Enrollment
@@ -221,9 +221,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 4]
+Selander, et al.         Expires 21 August 2020                 [Page 4]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    *  Code is 2.04 (Changed)
@@ -277,9 +277,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 5]
+Selander, et al.         Expires 21 August 2020                 [Page 5]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
 2.3.  Full Enrollment
@@ -333,9 +333,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 6]
+Selander, et al.         Expires 21 August 2020                 [Page 6]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
 3.1.  EDHOC
@@ -389,9 +389,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 7]
+Selander, et al.         Expires 21 August 2020                 [Page 7]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
       EALS                                     EALS
@@ -445,9 +445,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 8]
+Selander, et al.         Expires 21 August 2020                 [Page 8]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    *  The RS and AS can exchange encrypted, integrity and replay
@@ -501,9 +501,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 9]
+Selander, et al.         Expires 21 August 2020                 [Page 9]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    For the benefit of the client authorizing the enrollment, this
@@ -557,9 +557,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                 [Page 10]
+Selander, et al.         Expires 21 August 2020                [Page 10]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    order to provide the CoAP Proxy functionality described in this
@@ -613,14 +613,14 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                 [Page 11]
+Selander, et al.         Expires 21 August 2020                [Page 11]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
-              draft-ietf-ace-oauth-authz-31, 18 January 2020,
+              draft-ietf-ace-oauth-authz-33, 6 February 2020,
               <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
-              authz-31.txt>.
+              authz-33.txt>.
 
    [I-D.ietf-core-object-security]
               Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
@@ -669,9 +669,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                 [Page 12]
+Selander, et al.         Expires 21 August 2020                [Page 12]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    [I-D.ietf-6tisch-minimal-security]
@@ -686,9 +686,9 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
               Pritikin, M., Richardson, M., Eckert, T., Behringer, M.,
               and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-bootstrapping-keyinfra-34, 3
-              January 2020, <http://www.ietf.org/internet-drafts/draft-
-              ietf-anima-bootstrapping-keyinfra-34.txt>.
+              Draft, draft-ietf-anima-bootstrapping-keyinfra-35, 5
+              February 2020, <http://www.ietf.org/internet-drafts/draft-
+              ietf-anima-bootstrapping-keyinfra-35.txt>.
 
    [I-D.seitz-ace-oscoap-profile]
               Seitz, L., Palombini, F., and M. Gunnarsson, "OSCORE
@@ -725,9 +725,9 @@ Authors' Addresses
 
 
 
-Selander, et al.          Expires 24 July 2020                 [Page 13]
+Selander, et al.         Expires 21 August 2020                [Page 13]
 
-Internet-Draft Enrollment with Application Layer Security   January 2020
+Internet-Draft Enrollment with Application Layer Security  February 2020
 
 
    Email: goran.selander@ericsson.com
@@ -781,4 +781,4 @@ Internet-Draft Enrollment with Application Layer Security   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                 [Page 14]
+Selander, et al.         Expires 21 August 2020                [Page 14]

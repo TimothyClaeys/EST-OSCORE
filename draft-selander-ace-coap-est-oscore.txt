@@ -5,12 +5,12 @@
 ACE Working Group                                            G. Selander
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                                 S. Raza
-Expires: 24 July 2020                                               RISE
+Expires: 21 August 2020                                             RISE
                                                               M. Furuhed
                                                                    Nexus
                                                               M. Vucinic
                                                                    INRIA
-                                                         21 January 2020
+                                                        18 February 2020
 
 
                   Protecting EST Payloads with OSCORE
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 July 2020.
+   This Internet-Draft will expire on 21 August 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 1]
+Selander, et al.         Expires 21 August 2020                 [Page 1]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
    license-info) in effect on the date of publication of this document.
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 2]
+Selander, et al.         Expires 21 August 2020                 [Page 2]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
    OSCORE is designed for constrained environments, building on IoT
@@ -165,9 +165,9 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 3]
+Selander, et al.         Expires 21 August 2020                 [Page 3]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
          message size and round trips compared to a key exchange
@@ -221,9 +221,9 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 4]
+Selander, et al.         Expires 21 August 2020                 [Page 4]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
 3.  Discovery and URI
@@ -277,9 +277,9 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 5]
+Selander, et al.         Expires 21 August 2020                 [Page 5]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
                                            Constrained-Node Network
@@ -333,9 +333,9 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 6]
+Selander, et al.         Expires 21 August 2020                 [Page 6]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -389,9 +389,9 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 7]
+Selander, et al.         Expires 21 August 2020                 [Page 7]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
    [I-D.raza-ace-cbor-certificates]
@@ -445,9 +445,9 @@ Authors' Addresses
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 8]
+Selander, et al.         Expires 21 August 2020                 [Page 8]
 
-Internet-Draft                 EST-OSCORE                   January 2020
+Internet-Draft                 EST-OSCORE                  February 2020
 
 
    Martin Furuhed
@@ -501,4 +501,4 @@ Internet-Draft                 EST-OSCORE                   January 2020
 
 
 
-Selander, et al.          Expires 24 July 2020                  [Page 9]
+Selander, et al.         Expires 21 August 2020                 [Page 9]
